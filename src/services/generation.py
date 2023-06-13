@@ -9,8 +9,8 @@ class KeyWordGenerationService:
         self._chat_gpt = chat_gpt_client
 
     @staticmethod
-    def _build_text_request_(comment: str) -> str:
-        text = f'Сгенерируй список возможных 50 вакансий по следующему описанию: {comment}'
+    def _build_text_request_(description: str) -> str:
+        text = f'Generate a list of possible 50 vacancies according to the following description: {description}'
         return text
 
     @staticmethod

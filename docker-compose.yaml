@@ -18,7 +18,7 @@ services:
       - "8080:8080"
     command: [ "--selenoid-uri", "http://selenoid:4444" ]
 
-  redis:
+  background-redis:
     container_name: background-redis
     image: redis
     ports:
@@ -36,4 +36,4 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - redis
+      - background-redis

@@ -1,3 +1,4 @@
+import logging
 import random
 import re
 import time
@@ -9,6 +10,14 @@ from selenium.webdriver import Remote
 from selenium.webdriver.common.by import By
 
 from src.dto import LinkParseResponse, JobData
+
+py_logger = logging.getLogger(__name__)
+py_logger.setLevel(logging.INFO)
+py_handler = logging.FileHandler(f"{__name__}.log", mode='w')
+py_formatter = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
+
+py_handler.setFormatter(py_formatter)
+py_logger.addHandler(py_handler)
 
 
 class LinkParseService:
