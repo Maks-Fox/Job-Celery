@@ -34,7 +34,7 @@ class BrowserClient:
         firefox_options.set_capability('browserVersion', '113.0')
         firefox_options.set_capability('selenoid:options', {
             "enableVideo": False,
-            'timeout': '3m',
+            # 'timeout': '3m',
             'screenResolution': '1920x1080',
         })
         firefox_options.add_argument(

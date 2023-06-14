@@ -11,7 +11,10 @@ class KeyWordGenerationService:
 
     @staticmethod
     def _build_text_request_(description: str) -> str:
-        text = f'Generate a list of possible 50 vacancies according to the following description: {description}'
+        text = f'''
+            Generate 50 common job titles in one or two words by description: 
+            {description}
+        '''
         return text
 
     @staticmethod
