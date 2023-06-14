@@ -6,21 +6,25 @@ from bs4 import BeautifulSoup
 from selenium.webdriver import Remote
 
 from src.dto import EstimateServiceResponse, LinkParseResponse
-from src.services.clients import ChatGptClient
+from src.services.clients import ChatGptClient, Logger
 
 
 class EstimateService:
 
-    def __init__(self, chat_gpt_client: ChatGptClient, driver: Remote):
+    def __init__(self, chat_gpt_client: ChatGptClient, driver: Remote, logger: Logger):
         self._chat_gpt = chat_gpt_client
         self._driver = driver
+        self._logger = logger
 
     def _get_text_from_link_(self, link: str) -> str:
-        self._driver.get(link)
-        time.sleep(5)
-        page_content = self._driver.page_source
-        soup = BeautifulSoup(page_content, 'html.parser')
-        return soup.text
+        try:
+            self._driver.get(link)
+            time.sleep(5)
+            page_content = self._driver.page_source
+            soup = BeautifulSoup(page_content, 'html.parser')
+            return soup.text
+        except Exception as e:
+            self._logger.log_error(f'Estimation parse job link "{link}": {str(e)}')
 
     @staticmethod
     def _build_text_request_(html_text: str, user_comment: str) -> str:
@@ -46,7 +50,7 @@ class EstimateService:
             score = self._preproc_string_(response)
             return score
         except Exception as e:
-            print(f'Exception Estimation: {str(e)}')
+            self._logger.log_error(f'Exception Estimation: {str(e)}')
             return 1
 
     @staticmethod

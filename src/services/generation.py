@@ -1,12 +1,13 @@
 import re
 from typing import List
 
-from src.services.clients import ChatGptClient
+from src.services.clients import ChatGptClient, Logger
 
 
 class KeyWordGenerationService:
-    def __init__(self, chat_gpt_client: ChatGptClient):
+    def __init__(self, chat_gpt_client: ChatGptClient, logger: Logger):
         self._chat_gpt = chat_gpt_client
+        self._logger = logger
 
     @staticmethod
     def _build_text_request_(description: str) -> str:
@@ -27,4 +28,5 @@ class KeyWordGenerationService:
             results = self._preproc_string_(response)
             return results
         except Exception as e:
+            self._logger.log_error(f'Error Generate Jobs: {str(e)}')
             return []

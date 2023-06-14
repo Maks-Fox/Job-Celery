@@ -12,9 +12,6 @@ def create_app() -> Celery:
     app.conf.result_backend = config['result_backend']
 
     app.register_task(container.task())
-    # app.register_task(container.link_parse_task())
-    # app.register_task(container.description_parse_task())
-    # app.register_task(container.key_word_generation_task())
     return app
 
 
